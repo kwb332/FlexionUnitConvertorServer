@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>8e9758eb-f8c3-4806-90db-bc8da4ad0bd3</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphiQL" Version="1.2.0" />
+    <PackageReference Include="GraphQL" Version="2.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Flexion.Report.API.Models\Flexion.Report.API.Models.csproj" />
+    <ProjectReference Include="..\Flexion.Report.Application\Flexion.Report.Application.csproj" />
+    <ProjectReference Include="..\Flexion.Report.Domain\Flexion.Report.Domain.csproj" />
+    <ProjectReference Include="..\Flexion.Report.Infrastructure\Flexion.Report.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
