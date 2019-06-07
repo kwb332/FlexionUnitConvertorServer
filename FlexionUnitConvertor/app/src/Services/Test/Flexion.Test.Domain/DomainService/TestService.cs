@@ -50,7 +50,7 @@ namespace Flexion.Test.Domain
             var examData = new Infrastructure.DataModel.Exam()
             {
                 DateCompleted = exam.DateCompleted,
-                DateCreated = exam.DateCreated,
+                DateCreated = DateTime.Now.ToLocalTime(),
                 ExamId = exam.ExamId,
                 ExamQuestion = null,
                 IsComplete = false,
@@ -106,7 +106,7 @@ namespace Flexion.Test.Domain
             var examData = await _testRepository.GetExam(examID);
             var examObject = new Exam()
             {
-                DateCompleted = examData.DateCompleted,
+                DateCompleted = examData.DateCompleted.Value.ToLocalTime(),
                 DateCreated = examData.DateCreated,
                 Description = examData.Description,
                 ExamId = examData.ExamId,
@@ -217,7 +217,7 @@ namespace Flexion.Test.Domain
             {
                 ExamId = exam.ExamId,
                 IsComplete = false,
-                DateCreated = DateTime.Now,
+                DateCreated = DateTime.Now.ToLocalTime(),
                 IsGraded = false,
                 StudentId = exam.StudentId,
                 TeacherId = exam.TeacherId,
@@ -241,7 +241,7 @@ namespace Flexion.Test.Domain
                     ExamId = exam.ExamId,
                     IsComplete = true,
                     IsGraded = true,
-                    DateCompleted = DateTime.Now,
+                    DateCompleted = DateTime.Now.ToLocalTime(),
 
                 };
                 await _testRepository.SubmitExamToStudent(examData);
