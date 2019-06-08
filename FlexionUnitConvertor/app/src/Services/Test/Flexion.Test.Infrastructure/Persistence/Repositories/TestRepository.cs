@@ -114,7 +114,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Exam.Where(x => x.TeacherId == teacherID && x.IsCreated == true).ToListAsync();
+                return await _examDBContext.Exam.Where(x => x.TeacherId == teacherID).ToListAsync();
 
             }
             catch (Exception ex)
