@@ -11,5 +11,6 @@ namespace Flexion.Report.Domain.DomainInterface
         Task<List<Report.Domain.DomainModel.Report>> GetReportByID(int examID);
         Task<List<Report.Domain.DomainModel.Report>> GetReportByUserID(int UserID, int examID);
         Task<bool> AddReport(Report.Domain.DomainModel.Report report);
+        Task<bool> AddReports(List<DomainModel.Report> reportAdd);
     }
 }

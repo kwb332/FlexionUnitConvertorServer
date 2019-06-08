@@ -5,6 +5,7 @@ using GraphQL.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Flexion.Report.API.Operations.EnumOperations;
@@ -29,6 +30,11 @@ namespace Flexion.Report.API.Operations
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ReportInputType>> { Name = "reportAdd" }),
                 resolve: context => ManageReport(context, ReportOperations.AddReport));
 
+            Field<BooleanGraphType>(
+               "AddReports",
+               arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ListGraphType<ReportInputType>>> { Name = "reportAdd" }),
+               resolve: context => ManageReport(context, ReportOperations.AddReports));
+
         }
 
         public async Task<object> ManageReport(ResolveFieldContext<object> context, ReportOperations operation)
@@ -43,8 +49,12 @@ namespace Flexion.Report.API.Operations
                         var reportAdd = context.GetArgument<Domain.DomainModel.Report>("reportAdd");
                         report = await _reportDriver.AddReport(reportAdd);
                         break;
+                    case ReportOperations.AddReports:
+                        var reportAdds = context.GetArgument<List<Domain.DomainModel.Report>>("reportAdd");
+                        report = await _reportDriver.AddReports(reportAdds);
+                        break;
 
-                    
+
                 }
 
                 return report;

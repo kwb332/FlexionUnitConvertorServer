@@ -11,6 +11,6 @@ namespace Flexion.Report.Infrastructure.InfrastructureInterface
         Task<List<DataModel.Report>> GetReportByID(int ReportID);
         Task<List<DataModel.Report>> GetReportByUserID(int UserID, int examID);
         Task<bool> AddReport(DataModel.Report report);
-
+        Task<bool> AddReports(List<Infrastructure.DataModel.Report> reportToAdd);
     }
 }

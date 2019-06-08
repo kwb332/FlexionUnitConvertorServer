@@ -164,6 +164,33 @@ namespace Flexion.Report.Domain.DomainService
             return report;
         }
 
-       
+        public async Task<bool> AddReports(List<DomainModel.Report> reportAdd)
+        {
+            var reportData = new List<Infrastructure.DataModel.Report>();
+            foreach (DomainModel.Report rep in reportAdd)
+            {
+                var examQuestionData = new Infrastructure.DataModel.ExamQuestion()
+                {
+                    ExamId = rep.ExamId,
+                    InputUnitOfMeasure = rep.InputUnitOfMeasure,
+                    InputValue = rep.InputValue,
+                    StudentID = rep.StudentID,
+                    StudentName = rep.StudentName,
+                    StudentResponse = rep.StudentResponse,
+                    IsCorrect = rep.IsCorrect,
+                    OutPutUnitOfMeasure = rep.OutPutUnitOfMeasure,
+                    TeacherName = rep.TeacherName
+                };
+                var reportToAdd = new Report.Infrastructure.DataModel.Report()
+                {
+                    ExamDate = rep.ExamDate,
+                    ExamDescription = rep.ExamDescription,
+                    ExamId = rep.ExamId,
+                    ExamQuestion = examQuestionData
+                };
+                reportData.Add(reportToAdd);
+            }
+            return await _reportRepository.AddReports(reportData);
+        }
     }
 }

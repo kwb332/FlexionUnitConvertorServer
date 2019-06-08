@@ -21,6 +21,11 @@ namespace Flexion.Report.Application
             return await _reportService.AddReport(report);
         }
 
+        public async Task<bool> AddReports(List<Domain.DomainModel.Report> reportAdd)
+        {
+            return await _reportService.AddReports(reportAdd);
+        }
+
         public async Task<List<Domain.DomainModel.Report>> GetReportByID(int examID)
         {
             return await _reportService.GetReportByID(examID);

@@ -46,7 +46,31 @@ namespace Flexion.Report.Infrastructure.Persistence.Repositories
                 return false;
             }
         }
+        public async Task<bool> AddReports(List<DataModel.Report> reports)
+        {
+            try
+            {
+                foreach (var report in reports)
+                {
+                    report.InputUnitOfMeasure = report.ExamQuestion.InputUnitOfMeasure;
+                    report.InputValue = report.ExamQuestion.InputValue;
+                    report.IsCorrect = report.ExamQuestion.IsCorrect;
+                    report.StudentID = report.ExamQuestion.StudentID;
+                    report.OutPutUnitOfMeasure = report.ExamQuestion.OutPutUnitOfMeasure;
+                    report.StudentName = report.ExamQuestion.StudentName;
+                    report.TeacherName = report.ExamQuestion.TeacherName;
+                    report.StudentResponse = report.ExamQuestion.StudentResponse;
 
+                }
+                await _reportDBContext.Report.AddRangeAsync(reports);
+                _reportDBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<List<DataModel.Report>> GetReportByUserID(int UserID, int examID)
         {
             return await _reportDBContext.Report.Where(x => x.StudentID == UserID && x.ExamId == examID).ToListAsync();

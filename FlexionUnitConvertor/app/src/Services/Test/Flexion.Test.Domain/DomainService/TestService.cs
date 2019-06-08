@@ -122,21 +122,28 @@ namespace Flexion.Test.Domain
 
         public async Task<List<Exam>> GetExamByUser(int userID)
         {
-            var examData = await _testRepository.GetExamByUser(userID);
-            var examObjects = examData.Select(x=> new Exam()
+            try
             {
-                DateCompleted = x.DateCompleted,
-                DateCreated = x.DateCreated,
-                Description = x.Description,
-                ExamId = x.ExamId,
-                IsComplete = x.IsComplete,
-                IsCreated = x.IsCreated,
-                IsGraded = x.IsGraded,
-                StudentId = x.StudentId,
-                TeacherId = x.TeacherId
+                var examData = await _testRepository.GetExamByUser(userID);
+                var examObjects = examData.Select(x => new Exam()
+                {
+                    DateCompleted = x.DateCompleted,
+                    DateCreated = x.DateCreated,
+                    Description = x.Description,
+                    ExamId = x.ExamId,
+                    IsComplete = x.IsComplete,
+                    IsCreated = x.IsCreated,
+                    IsGraded = x.IsGraded,
+                    StudentId = x.StudentId,
+                    TeacherId = x.TeacherId
 
-            }).ToList();
-            return examObjects;
+                }).ToList();
+                return examObjects;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<List<ExamQuestion>> GetExamQuestions(int examID)

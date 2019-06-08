@@ -102,12 +102,12 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Exam.Where(x => x.StudentId == userID).ToListAsync();
+                return await _examDBContext.Exam.Where(x => x.StudentId == userID && x.IsCreated == true).ToListAsync();
 
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw;
             }
         }
 
@@ -174,10 +174,6 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
             try
             {
                 var entity = await _examDBContext.Exam.FirstOrDefaultAsync(x => x.ExamId == exam.ExamId);
-                exam.DateCreated = entity.DateCreated;
-                exam.StudentId = entity.StudentId;
-                exam.TeacherId = entity.TeacherId;
-                exam.Description = entity.Description;
                 _examDBContext.Entry(entity).State = EntityState.Detached;
                 _examDBContext.Exam.Update(exam);
                 _examDBContext.SaveChanges();

@@ -4,7 +4,8 @@
     {
         public enum ReportOperations
         {
-            AddReport
+            AddReport,
+            AddReports
         }
             
     }
