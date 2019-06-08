@@ -12,6 +12,8 @@ namespace Flexion.Test.Domain.DomainModel
         public int ExamId { get; set; }
         public String Description { get; set; }
         public int StudentId { get; set; }
+        public String StudentName { get; set; }
+        public String TeacherName { get; set; }
         public bool? IsComplete { get; set; }
         public bool? IsGraded { get; set; }
         public DateTime? DateCreated { get; set; }

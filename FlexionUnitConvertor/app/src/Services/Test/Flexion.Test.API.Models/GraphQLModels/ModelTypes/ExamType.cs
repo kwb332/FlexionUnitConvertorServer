@@ -16,6 +16,8 @@ namespace Flexion.Test.API.Models.GraphQLModels.ModelTypes
             Field(x => x.IsComplete,true);
             Field(x => x.IsCreated,true);
             Field(x => x.IsGraded,true);
+            Field(x => x.StudentName, true);
+            Field(x => x.TeacherName, true);
             Field(x => x.StudentId,true);
             Field(x => x.TeacherId,true);
        

@@ -19,6 +19,8 @@ namespace Flexion.Test.API.Models.GraphQLModels.InputTypes
             Field<BooleanGraphType>("IsGraded");
             Field<DateTimeGraphType>("DateCreated");
             Field<IntGraphType>("TeacherId");
+            Field<StringGraphType>("StudentName");
+            Field<StringGraphType>("TeacherName");
             Field<DateGraphType>("ExamDate");
             Field<BooleanGraphType>("IsCreated");
 

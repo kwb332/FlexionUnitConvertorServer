@@ -63,21 +63,28 @@ namespace Flexion.User.Domain
 
         public async Task<List<Student>> GetStudents()
         {
-            var userData = await _userRepository.GetStudents();
-            var users = userData.Select(x => new Student()
+            try
             {
-                UserRoleId = x.UserRoleId,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                UserId = x.UserId,
-                UserRole = new UserRole()
+                var userData = await _userRepository.GetStudents();
+                var users = userData.Select(x => new Student()
                 {
-                    UserRoleId = x.UserRoleId.Value,
-                    RoleName = x.UserRole.RoleName
-                }
-            }).ToList();
-            
-            return users;
+                    UserRoleId = x.UserRoleId,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    UserId = x.UserId,
+                    UserRole = new UserRole()
+                    {
+                        UserRoleId = x.UserRoleId.Value,
+                        RoleName = x.UserRole.RoleName
+                    }
+                }).ToList();
+
+                return users;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<Teacher> GetTeacherByID(int userID)

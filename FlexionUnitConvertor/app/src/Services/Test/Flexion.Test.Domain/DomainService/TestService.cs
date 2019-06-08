@@ -260,11 +260,11 @@ namespace Flexion.Test.Domain
                   InputUnitOfMeasure = x.SourceConversion.ConversionName,
                   InputValue = x.InputValue,
                   StudentID = exam.StudentId,
-                  StudentName = null,
+                  StudentName = exam.StudentName,
                   StudentResponse = x.ExamQuestionAnswer.FirstOrDefault().Answer,
                   IsCorrect = x.ExamQuestionAnswer.FirstOrDefault().IsCorrect,
                   OutPutUnitOfMeasure = x.DestinationConversion.ConversionName,
-                  TeacherName = null,
+                  TeacherName = exam.TeacherName,
                   TeacherID = exam.TeacherId,
                   ExamDate = x.Exam.DateCreated,
                   ExamDescription = x.Exam.Description

@@ -32,7 +32,15 @@ namespace Flexion.User.Application.ApplicationInterface
 
         public async Task<List<Student>> GetStudents()
         {
-            return await _userService.GetStudents();
+            try
+            {
+                return await _userService.GetStudents();
+            }
+            catch(Exception ex)
+            {
+                //logging goes here
+                throw;
+            }
         }
 
         public async Task<Teacher> GetTeacherByID(int userID)

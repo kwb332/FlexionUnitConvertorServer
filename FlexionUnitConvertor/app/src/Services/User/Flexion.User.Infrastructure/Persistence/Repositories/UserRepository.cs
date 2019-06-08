@@ -50,7 +50,14 @@ namespace Flexion.User.Infrastructure.Persistence.Repositories
         }
         public async Task<List<DataModel.User>> GetStudents()
         {
-            return await _db.User.Include(x=>x.UserRole).Where(x => x.UserRole.RoleName == "Student").ToListAsync();
+            try
+            {
+                return await _db.User.Include(x => x.UserRole).Where(x => x.UserRole.RoleName == "Student").ToListAsync();
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<DataModel.User> GetTeacherByID(int UserID)
