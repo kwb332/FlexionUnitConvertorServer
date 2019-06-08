@@ -20,5 +20,6 @@ namespace Flexion.Test.Infrastructure.InfrastructureInterface
         Task<Exam> GetExam(int examID);
         Task<List<Exam>> GetExamByUser(int userID);
         Task<List<ExamQuestion>> GetExamQuestions(int examID);
+        Task<List<Exam>> GetExamByTeacherID(int teacherID);
     }
 }

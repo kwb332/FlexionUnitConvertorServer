@@ -110,6 +110,18 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
+        public async Task<List<Exam>> GetExamByTeacherID(int teacherID)
+        {
+            try
+            {
+                return await _examDBContext.Exam.Where(x => x.TeacherId == teacherID && x.IsCreated == true).ToListAsync();
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         public async Task<List<Exam>> GetExams()
         {
@@ -174,6 +186,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
             try
             {
                 var entity = await _examDBContext.Exam.FirstOrDefaultAsync(x => x.ExamId == exam.ExamId);
+             
                 _examDBContext.Entry(entity).State = EntityState.Detached;
                 _examDBContext.Exam.Update(exam);
                 _examDBContext.SaveChanges();

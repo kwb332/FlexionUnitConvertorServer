@@ -24,6 +24,11 @@ namespace Flexion.Test.API.Operations
          "examByUserID",
          arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "userID" }),
          resolve: context => testDriver.GetExamByUser(context.GetArgument<int>("userID")));
+
+            Field<ListGraphType<ExamType>>(
+        "examByTeacherID",
+        arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "teacherID" }),
+        resolve: context => testDriver.GetExamByTeacher(context.GetArgument<int>("teacherID")));
             Field<ListGraphType<ExamType>>(
           "exams",
           resolve: context => testDriver.GetExams());

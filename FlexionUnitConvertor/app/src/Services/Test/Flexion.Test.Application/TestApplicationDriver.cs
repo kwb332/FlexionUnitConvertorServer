@@ -67,7 +67,11 @@ namespace Flexion.Test.Application
         {
             return await _testService.SubmitExamToTeacher(exam);
         }
+        public async Task<List<Exam>> GetExamByTeacher(int teacherID)
+        {
+            return await _testService.GetExamByTeacher(teacherID);
+        }
 
-       
+
     }
 }

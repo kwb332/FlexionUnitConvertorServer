@@ -19,5 +19,6 @@ namespace Flexion.Test.Application.ApplicationInterface
         Task<List<Exam>> GetExams();
         Task<Exam> GetExam(int examID);
         Task<List<Exam>> GetExamByUser(int userID);
+        Task<List<Exam>> GetExamByTeacher(int teacherID);
     }
 }

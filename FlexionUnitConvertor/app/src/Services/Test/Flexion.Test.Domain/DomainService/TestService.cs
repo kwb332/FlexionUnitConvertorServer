@@ -120,6 +120,32 @@ namespace Flexion.Test.Domain
             return examObject;
         }
 
+        public async Task<List<Exam>> GetExamByTeacher(int teacherID)
+        {
+            try
+            {
+                var examData = await _testRepository.GetExamByTeacherID(teacherID);
+                var examObjects = examData.Select(x => new Exam()
+                {
+                    DateCompleted = x.DateCompleted,
+                    DateCreated = x.DateCreated,
+                    Description = x.Description,
+                    ExamId = x.ExamId,
+                    IsComplete = x.IsComplete,
+                    IsCreated = x.IsCreated,
+                    IsGraded = x.IsGraded,
+                    StudentId = x.StudentId,
+                    TeacherId = x.TeacherId
+
+                }).ToList();
+                return examObjects;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<Exam>> GetExamByUser(int userID)
         {
             try
