@@ -21,11 +21,22 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                await _examDBContext.ExamQuestionAnswer.AddAsync(answer);
-                _examDBContext.SaveChanges();
-                return true;
+                var questionAnswer = await _examDBContext.ExamQuestionAnswer.FirstOrDefaultAsync(x => x.ExamQuestionId == answer.ExamQuestionId);
+                if (questionAnswer != null)
+                {
+                    questionAnswer.Answer = answer.Answer;
+                    _examDBContext.Update(questionAnswer);
+                    _examDBContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    await _examDBContext.ExamQuestionAnswer.AddAsync(answer);
+                    _examDBContext.SaveChanges();
+                    return true;
+                }
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
