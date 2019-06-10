@@ -199,6 +199,11 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 var entity = await _examDBContext.Exam.FirstOrDefaultAsync(x => x.ExamId == exam.ExamId);
              
                 _examDBContext.Entry(entity).State = EntityState.Detached;
+                exam.Description = entity.Description;
+                exam.DateCreated = entity.DateCreated;
+                exam.TeacherId = entity.TeacherId;
+                exam.StudentId = entity.StudentId;
+               
                 _examDBContext.Exam.Update(exam);
                 _examDBContext.SaveChanges();
                 return true;

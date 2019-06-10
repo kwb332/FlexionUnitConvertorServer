@@ -60,6 +60,7 @@ namespace Flexion.Report.Infrastructure.Persistence.Repositories
                     report.StudentName = report.ExamQuestion.StudentName;
                     report.TeacherName = report.ExamQuestion.TeacherName;
                     report.StudentResponse = report.ExamQuestion.StudentResponse;
+                   
 
                 }
                 await _reportDBContext.Report.AddRangeAsync(reports);

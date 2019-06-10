@@ -12,14 +12,14 @@ namespace Flexion.Report.API.Models.GraphQLModels.InputTypes
         {
             Name = "AddReportInput";
             Field<StringGraphType>("StudentName");
-            Field<NonNullGraphType<StringGraphType>>("TeacherName");
+            Field<NonNullGraphType<StringGraphType>>("TeacherName"); 
             Field<NonNullGraphType<FloatGraphType>>("InputValue");
             Field<NonNullGraphType<StringGraphType>>("InputUnitOfMeasure");
             Field<NonNullGraphType<StringGraphType>>("OutPutUnitOfMeasure");
             Field<NonNullGraphType<FloatGraphType>>("StudentResponse");
             Field<NonNullGraphType<BooleanGraphType>>("IsCorrect");
             Field<NonNullGraphType<IntGraphType>>("StudentID");
-            Field<NonNullGraphType<IntGraphType>>("ExamID");
+            Field<NonNullGraphType<IntGraphType>>("ExamId");
             Field<NonNullGraphType<DateGraphType>>("ExamDate");
             Field<NonNullGraphType<StringGraphType>>("ExamDescription");
 

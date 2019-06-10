@@ -267,6 +267,7 @@ namespace Flexion.Test.Domain
             var examQuestions = await _testRepository.GetExamQuestions(exam.ExamId);
             var convertionTable = await _testRepository.GetConversionTable();
             bool isGraded = await _conversionService.GradeExam(examQuestions, convertionTable);
+           
             if (isGraded)
             {
                 var examData = new Infrastructure.DataModel.Exam()
