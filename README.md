@@ -6,7 +6,7 @@ http://flexiontestapi.azurewebsites.net/graphql/
 http://flexionreportapi.azurewebsites.net/graphql/
 http://flexionuserapi.azurewebsites.net/graphql/
 
-The code is built using a Domain Driven Design and Onion approach
+The code is built using a Domain Driven Design and Onion approach.  Code uses Dependency Injection and the Repository Pattern as well. If I had more time I would have also stored sensitive information using key vault
 
 
 The microservice endpoint also have a gateway microservice implemented using node.js, express server and apollo client.  Check the other repo 
