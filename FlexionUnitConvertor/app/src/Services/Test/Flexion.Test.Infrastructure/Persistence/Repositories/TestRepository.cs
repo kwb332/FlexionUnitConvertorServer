@@ -203,7 +203,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 exam.DateCreated = entity.DateCreated;
                 exam.TeacherId = entity.TeacherId;
                 exam.StudentId = entity.StudentId;
-               
+                exam.IsCreated = true;
                 _examDBContext.Exam.Update(exam);
                 _examDBContext.SaveChanges();
                 return true;
