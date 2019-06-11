@@ -19,7 +19,7 @@ namespace Flexion.Report.Infrastructure.Persistence.Repositories
         }
         public async Task<List<DataModel.Report>> GetReportByID(int examID)
         {
-            return await _reportDBContext.Report.Where(x => x.ExamId == examID).ToListAsync();
+            return await _reportDBContext.Report.AsNoTracking().Where(x => x.ExamId == examID).ToListAsync();
         }
         public async Task<bool> AddReport(DataModel.Report report)
         {
@@ -74,7 +74,7 @@ namespace Flexion.Report.Infrastructure.Persistence.Repositories
         }
         public async Task<List<DataModel.Report>> GetReportByUserID(int UserID, int examID)
         {
-            return await _reportDBContext.Report.Where(x => x.StudentID == UserID && x.ExamId == examID).ToListAsync();
+            return await _reportDBContext.Report.AsNoTracking().Where(x => x.StudentID == UserID && x.ExamId == examID).ToListAsync();
         }
     }
 }

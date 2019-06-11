@@ -87,7 +87,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Conversion.Include(x=>x.ConversionType).ToListAsync();
+                return await _examDBContext.Conversion.AsNoTracking().Include(x=>x.ConversionType).ToListAsync();
 
             }
             catch
@@ -113,7 +113,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Exam.Where(x => x.StudentId == userID && x.IsCreated == true).ToListAsync();
+                return await _examDBContext.Exam.AsNoTracking().Where(x => x.StudentId == userID && x.IsCreated == true).ToListAsync();
 
             }
             catch(Exception ex)
@@ -125,7 +125,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Exam.Where(x => x.TeacherId == teacherID).ToListAsync();
+                return await _examDBContext.Exam.AsNoTracking().Where(x => x.TeacherId == teacherID).ToListAsync();
 
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Exam.ToListAsync();
+                return await _examDBContext.Exam.AsNoTracking().ToListAsync();
 
             }
             catch
@@ -216,7 +216,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
 
         public async Task<List<ExamQuestion>> GetExamQuestions(int examID)
         {
-            return await _examDBContext.ExamQuestion.Include(x=>x.ExamQuestionAnswer).Include(x=>x.DestinationConversion).Include(x => x.DestinationConversion.ConversionType).Include(x => x.SourceConversion.ConversionType).Include(x=>x.SourceConversion).Include(x=>x.Exam).Where(x=>x.ExamId == examID).ToListAsync();
+            return await _examDBContext.ExamQuestion.AsNoTracking().Include(x=>x.ExamQuestionAnswer).Include(x=>x.DestinationConversion).Include(x => x.DestinationConversion.ConversionType).Include(x => x.SourceConversion.ConversionType).Include(x=>x.SourceConversion).Include(x=>x.Exam).Where(x=>x.ExamId == examID).ToListAsync();
         }
     }
 }

@@ -46,13 +46,13 @@ namespace Flexion.User.Infrastructure.Persistence.Repositories
 
         public async Task<DataModel.User> GetStudentByID(int userID)
         {
-            return await _db.User.Include(x=>x.UserRole).FirstOrDefaultAsync(x => x.UserId == userID && x.UserRole.RoleName == "Student");
+            return await _db.User.AsNoTracking().Include(x=>x.UserRole).FirstOrDefaultAsync(x => x.UserId == userID && x.UserRole.RoleName == "Student");
         }
         public async Task<List<DataModel.User>> GetStudents()
         {
             try
             {
-                return await _db.User.Include(x => x.UserRole).Where(x => x.UserRole.RoleName == "Student").ToListAsync();
+                return await _db.User.AsNoTracking().Include(x => x.UserRole).Where(x => x.UserRole.RoleName == "Student").ToListAsync();
             }
             catch
             {
@@ -62,12 +62,12 @@ namespace Flexion.User.Infrastructure.Persistence.Repositories
 
         public async Task<DataModel.User> GetTeacherByID(int UserID)
         {
-            return await _db.User.Include(x => x.UserRole).FirstOrDefaultAsync(x => x.UserId == UserID && x.UserRole.RoleName == "Teacher");
+            return await _db.User.AsNoTracking().Include(x => x.UserRole).FirstOrDefaultAsync(x => x.UserId == UserID && x.UserRole.RoleName == "Teacher");
         }
 
         public async Task<List<DataModel.User>> GetTeachers()
         {
-            return await _db.User.Include(x => x.UserRole).Where(x => x.UserRole.RoleName == "Teacher").ToListAsync();
+            return await _db.User.AsNoTracking().Include(x => x.UserRole).Where(x => x.UserRole.RoleName == "Teacher").ToListAsync();
         }
     }
 }
