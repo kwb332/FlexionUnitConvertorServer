@@ -12,4 +12,4 @@ The code is built using a Domain Driven Design and Onion approach.  Code uses De
 The microservice endpoint also have a gateway microservice implemented using node.js, express server and apollo client.  Check the other repo 
 to see this implementation.  All calls go through the node.js gateway and are then routed to the microservices under this repo.
 
-If I had more time I would have implemented the micro-services using a messaging bus instead of rest.
+If I had more time I would have implemented the micro-services using a messaging bus instead of rest api.  I have created extension unit tests as well to test all the functionality in the application and to facilitate regression testing.
