@@ -169,18 +169,26 @@ namespace ExamUnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.NullReferenceException))]
+       
         public  void SubmitExamToTeacher()
         {
             var exam =  _driver.Initialize().GetAwaiter().GetResult();
-            try
-            {
-                var result = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
-            }
-            catch
-            {
-                throw;
-            }
+            exam.ExamQuestion.FirstOrDefault().ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+            answer.ExamQuestion = exam.ExamQuestion.FirstOrDefault();
+            answer.ExamQuestionAnswerId = 1;
+            answer.ExamQuestionId = answer.ExamQuestion.ExamQuestionId;
+            answer.IsAnswered = true;
+            answer.Answer = 100;
+            answer.IsCorrect = false;
+            exam.ExamQuestion.FirstOrDefault().Answer = answer;
+            exam.ExamQuestion.FirstOrDefault().ExamQuestionAnswer.Add(answer);
+
+
+
+            var result = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+
+            Assert.IsNotNull(result);
             
         }
 
@@ -192,7 +200,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 19;
             question.SourceConversion.ConversionId = 3;
             question.SourceConversionId = 3;
             question.SourceConversion.ConversionName = "Celsius";
@@ -204,13 +212,15 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Fahrenheit";
             question.DestinationConversion.ConversionTypeId = 2;
             question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 66.2;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -282,7 +292,8 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Celsius";
             question.DestinationConversion.ConversionTypeId = 2;
             question.DestinationConversion.ConversionType.ConversionTypeId = 2;
-
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
@@ -309,7 +320,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 15;
             question.SourceConversion.ConversionId = 3;
             question.SourceConversionId = 3;
             question.SourceConversion.ConversionName = "Celsius";
@@ -327,7 +338,7 @@ namespace ExamUnitTest
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 518.67;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -350,7 +361,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 19;
             question.SourceConversion.ConversionId = 3;
             question.SourceConversionId = 3;
             question.SourceConversion.ConversionName = "Celsius";
@@ -362,13 +373,15 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Rankine";
             question.DestinationConversion.ConversionTypeId = 2;
             question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 525.90;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -390,7 +403,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 20.2;
             question.SourceConversion.ConversionId = 3;
             question.SourceConversionId = 3;
             question.SourceConversion.ConversionName = "Celsius";
@@ -402,13 +415,14 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Rankine";
             question.DestinationConversion.ConversionTypeId = 2;
             question.DestinationConversion.ConversionType.ConversionTypeId = 2;
-
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 528.00;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -430,7 +444,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 1;
             question.SourceConversion.ConversionId = 15;
             question.SourceConversionId = 15;
             question.SourceConversion.ConversionName = "Galons";
@@ -442,13 +456,14 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Table Spoon";
             question.DestinationConversion.ConversionTypeId = 1;
             question.DestinationConversion.ConversionType.ConversionTypeId = 1;
-
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 256;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -469,7 +484,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 12;
             question.SourceConversion.ConversionId = 15;
             question.SourceConversionId = 15;
             question.SourceConversion.ConversionName = "Galons";
@@ -481,13 +496,15 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Liters";
             question.DestinationConversion.ConversionTypeId = 1;
             question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 45.4249;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -510,7 +527,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 12;
             question.SourceConversion.ConversionId = 15;
             question.SourceConversionId = 15;
             question.SourceConversion.ConversionName = "Galons";
@@ -522,13 +539,16 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Cups";
             question.DestinationConversion.ConversionTypeId = 1;
             question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 192;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -550,7 +570,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 10;
             question.SourceConversion.ConversionId = 15;
             question.SourceConversionId = 15;
             question.SourceConversion.ConversionName = "Galons";
@@ -562,13 +582,15 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Cubic Inches";
             question.DestinationConversion.ConversionTypeId = 1;
             question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 2310;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -582,14 +604,14 @@ namespace ExamUnitTest
             Assert.IsTrue(report.IsCorrect.Value);
         }
         [TestMethod]
-        public async void TestGalonsToCubicFeet()
+        public  void TestGalonsToCubicFeet()
         {
             var exam = _driver.Initialize().GetAwaiter().GetResult();
 
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 100;
             question.SourceConversion.ConversionId = 15;
             question.SourceConversionId = 15;
             question.SourceConversion.ConversionName = "Galons";
@@ -601,13 +623,15 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Cubic Feet";
             question.DestinationConversion.ConversionTypeId = 1;
             question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 13.3681;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -628,7 +652,7 @@ namespace ExamUnitTest
             ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
 
 
-            question.InputValue = 0;
+            question.InputValue = 100;
             question.SourceConversion.ConversionId = 15;
             question.SourceConversionId = 15;
             question.SourceConversion.ConversionName = "Galons";
@@ -640,13 +664,15 @@ namespace ExamUnitTest
             question.DestinationConversion.ConversionName = "Galons";
             question.DestinationConversion.ConversionTypeId = 1;
             question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
 
             ExamQuestionAnswer answer = new ExamQuestionAnswer();
 
             answer.ExamQuestion = question;
             answer.IsAnswered = true;
             answer.ExamQuestionAnswerId = 1;
-            answer.Answer = 0;
+            answer.Answer = 100;
             answer.ExamQuestionId = question.ExamQuestionId;
             question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
             question.ExamQuestionAnswer.Add(answer);
@@ -708,13 +734,19 @@ namespace ExamUnitTest
         }
 
         [TestMethod]
-        
+        [ExpectedException(typeof(System.ArgumentNullException))]
         public void SubmitExamToTeacherFail()
         {
-            Exam exam = _driver.Initialize().GetAwaiter().GetResult();
-            exam.ExamId = -1000;
-            var result =_driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
-            Assert.IsNotNull(result);
+            try
+            {
+                Exam exam = _driver.Initialize().GetAwaiter().GetResult();
+                exam.ExamId = -1000;
+                var result = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         [TestMethod]
       
@@ -724,6 +756,504 @@ namespace ExamUnitTest
 
             Assert.AreEqual(results.Count(), 0);
         }
+
+        [TestMethod]
+        public void TestCelciusTofahrenheitFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 0;
+            question.SourceConversion.ConversionId = 3;
+            question.SourceConversionId = 3;
+            question.SourceConversion.ConversionName = "Celsius";
+            question.SourceConversion.ConversionTypeId = 2;
+            question.SourceConversion.ConversionType.ConversionTypeId = 2;
+
+
+
+            question.DestinationConversion.ConversionId = 5;
+            question.DestinationConversionId = 5;
+            question.DestinationConversion.ConversionName = "Fahrenheit";
+            question.DestinationConversion.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
+
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+        [TestMethod]
+        public void TestCelciusToCelciusFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 100;
+            question.SourceConversion.ConversionId = 3;
+            question.SourceConversionId = 3;
+            question.SourceConversion.ConversionName = "Celsius";
+            question.SourceConversion.ConversionTypeId = 2;
+            question.SourceConversion.ConversionType.ConversionTypeId = 2;
+
+            question.DestinationConversion.ConversionId = 3;
+            question.DestinationConversionId = 3;
+            question.DestinationConversion.ConversionName = "Celsius";
+            question.DestinationConversion.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 60;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+        [TestMethod]
+        public void TestCelciusToCelciusZeroFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 0;
+            question.SourceConversion.ConversionId = 3;
+            question.SourceConversionId = 3;
+            question.SourceConversion.ConversionName = "Celsius";
+            question.SourceConversion.ConversionTypeId = 2;
+            question.SourceConversion.ConversionType.ConversionTypeId = 2;
+
+            question.DestinationConversion.ConversionId = 3;
+            question.DestinationConversionId = 3;
+            question.DestinationConversion.ConversionName = "Celsius";
+            question.DestinationConversion.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
+
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = -23;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+        [TestMethod]
+        public void TestCelciusToRankineFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 0;
+            question.SourceConversion.ConversionId = 3;
+            question.SourceConversionId = 3;
+            question.SourceConversion.ConversionName = "Celsius";
+            question.SourceConversion.ConversionTypeId = 2;
+            question.SourceConversion.ConversionType.ConversionTypeId = 2;
+
+            question.DestinationConversion.ConversionId = 6;
+            question.DestinationConversionId = 6;
+            question.DestinationConversion.ConversionName = "Rankine";
+            question.DestinationConversion.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
+
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+
+        }
+
+        [TestMethod]
+        public void TestCelciusToRankineRoundUpFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 15;
+            question.SourceConversion.ConversionId = 3;
+            question.SourceConversionId = 3;
+            question.SourceConversion.ConversionName = "Celsius";
+            question.SourceConversion.ConversionTypeId = 2;
+            question.SourceConversion.ConversionType.ConversionTypeId = 2;
+
+            question.DestinationConversion.ConversionId = 6;
+            question.DestinationConversionId = 6;
+            question.DestinationConversion.ConversionName = "Rankine";
+            question.DestinationConversion.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
+
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 518.1;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+
+        [TestMethod]
+        public void TestCelciusToRankineRoundDownFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 15;
+            question.SourceConversion.ConversionId = 3;
+            question.SourceConversionId = 3;
+            question.SourceConversion.ConversionName = "Celsius";
+            question.SourceConversion.ConversionTypeId = 2;
+            question.SourceConversion.ConversionType.ConversionTypeId = 2;
+
+            question.DestinationConversion.ConversionId = 6;
+            question.DestinationConversionId = 6;
+            question.DestinationConversion.ConversionName = "Rankine";
+            question.DestinationConversion.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 2;
+            question.DestinationConversion.ConversionType.ConversionName = "Temperature";
+            question.SourceConversion.ConversionType.ConversionName = "Temperature";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 518.0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+
+        [TestMethod]
+        public void TestGalonsToTableSpoonFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 100;
+            question.SourceConversion.ConversionId = 15;
+            question.SourceConversionId = 15;
+            question.SourceConversion.ConversionName = "Galons";
+            question.SourceConversion.ConversionTypeId = 1;
+            question.SourceConversion.ConversionType.ConversionTypeId = 1;
+
+            question.DestinationConversion.ConversionId = 9;
+            question.DestinationConversionId = 9;
+            question.DestinationConversion.ConversionName = "Table Spoon";
+            question.DestinationConversion.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+        [TestMethod]
+        public void TestGalonsLitersFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 10;
+            question.SourceConversion.ConversionId = 15;
+            question.SourceConversionId = 15;
+            question.SourceConversion.ConversionName = "Galons";
+            question.SourceConversion.ConversionTypeId = 1;
+            question.SourceConversion.ConversionType.ConversionTypeId = 1;
+
+            question.DestinationConversion.ConversionId = 7;
+            question.DestinationConversionId = 7;
+            question.DestinationConversion.ConversionName = "Liters";
+            question.DestinationConversion.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+            
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+
+
+        [TestMethod]
+        public void TestGalonToCupsFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 100;
+            question.SourceConversion.ConversionId = 15;
+            question.SourceConversionId = 15;
+            question.SourceConversion.ConversionName = "Galons";
+            question.SourceConversion.ConversionTypeId = 1;
+            question.SourceConversion.ConversionType.ConversionTypeId = 1;
+
+            question.DestinationConversion.ConversionId = 12;
+            question.DestinationConversionId = 12;
+            question.DestinationConversion.ConversionName = "Cups";
+            question.DestinationConversion.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+
+        [TestMethod]
+        public void TestGalonsToCubicInchesFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 19;
+            question.SourceConversion.ConversionId = 15;
+            question.SourceConversionId = 15;
+            question.SourceConversion.ConversionName = "Galons";
+            question.SourceConversion.ConversionTypeId = 1;
+            question.SourceConversion.ConversionType.ConversionTypeId = 1;
+
+            question.DestinationConversion.ConversionId = 10;
+            question.DestinationConversionId = 10;
+            question.DestinationConversion.ConversionName = "Cubic Inches";
+            question.DestinationConversion.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+        [TestMethod]
+        public  void TestGalonsToCubicFeetFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 10;
+            question.SourceConversion.ConversionId = 15;
+            question.SourceConversionId = 15;
+            question.SourceConversion.ConversionName = "Galons";
+            question.SourceConversion.ConversionTypeId = 1;
+            question.SourceConversion.ConversionType.ConversionTypeId = 1;
+
+            question.DestinationConversion.ConversionId = 14;
+            question.DestinationConversionId = 14;
+            question.DestinationConversion.ConversionName = "Cubic Feet";
+            question.DestinationConversion.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+        [TestMethod]
+        public void TestGalonsToGalonsFail()
+        {
+            var exam = _driver.Initialize().GetAwaiter().GetResult();
+
+            ExamQuestion question = exam.ExamQuestion.FirstOrDefault();
+
+
+            question.InputValue = 1000;
+            question.SourceConversion.ConversionId = 15;
+            question.SourceConversionId = 15;
+            question.SourceConversion.ConversionName = "Galons";
+            question.SourceConversion.ConversionTypeId = 1;
+            question.SourceConversion.ConversionType.ConversionTypeId = 1;
+
+            question.DestinationConversion.ConversionId = 15;
+            question.DestinationConversionId = 15;
+            question.DestinationConversion.ConversionName = "Galons";
+            question.DestinationConversion.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionTypeId = 1;
+            question.DestinationConversion.ConversionType.ConversionName = "Volume";
+            question.SourceConversion.ConversionType.ConversionName = "Volume";
+            ExamQuestionAnswer answer = new ExamQuestionAnswer();
+
+            answer.ExamQuestion = question;
+            answer.IsAnswered = true;
+            answer.ExamQuestionAnswerId = 1;
+            answer.Answer = 0;
+            answer.ExamQuestionId = question.ExamQuestionId;
+            question.ExamQuestionAnswer = new List<ExamQuestionAnswer>();
+            question.ExamQuestionAnswer.Add(answer);
+            question.Answer = answer;
+
+            _driver.AddAnswer(answer).GetAwaiter().GetResult();
+
+            var reports = _driver.SubmitExamToTeacher(exam).GetAwaiter().GetResult();
+            var report = reports.FirstOrDefault(x => x.ExamQuestion.ExamQuestionId == answer.ExamQuestionId);
+
+            Assert.IsFalse(report.IsCorrect.Value);
+        }
+
+      
         #endregion
     }
 }
