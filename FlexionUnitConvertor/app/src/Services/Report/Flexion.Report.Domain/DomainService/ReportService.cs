@@ -131,7 +131,7 @@ namespace Flexion.Report.Domain.DomainService
         }
         public async Task<List<DomainModel.Report>> GetReportByUserID(int UserID, int examID)
         {
-            var reportData = await _reportRepository.GetReportByUserID(examID, UserID);
+            var reportData = await _reportRepository.GetReportByUserID(UserID, examID);
             var report = reportData.Select(x => new Domain.DomainModel.Report()
             {
                 ExamId = x.ExamId,

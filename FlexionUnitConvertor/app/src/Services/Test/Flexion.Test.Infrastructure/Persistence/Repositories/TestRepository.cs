@@ -36,7 +36,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -50,7 +50,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 _examDBContext.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -74,8 +74,8 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Conversion.Include(x=>x.ConversionType).FirstOrDefaultAsync(x=>x.ConversionId == conversionID);
-                
+                return await _examDBContext.Conversion.Include(x => x.ConversionType).FirstOrDefaultAsync(x => x.ConversionId == conversionID);
+
             }
             catch
             {
@@ -87,7 +87,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Conversion.AsNoTracking().Include(x=>x.ConversionType).ToListAsync();
+                return await _examDBContext.Conversion.AsNoTracking().Include(x => x.ConversionType).ToListAsync();
 
             }
             catch
@@ -100,7 +100,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return await _examDBContext.Exam.FirstOrDefaultAsync(x=>x.ExamId == examID);
+                return await _examDBContext.Exam.FirstOrDefaultAsync(x => x.ExamId == examID);
 
             }
             catch
@@ -116,7 +116,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 return await _examDBContext.Exam.AsNoTracking().Where(x => x.StudentId == userID && x.IsCreated == true).ToListAsync();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -169,7 +169,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 _examDBContext.Exam.Update(exam);
                 _examDBContext.SaveChanges();
                 return true;
-              
+
             }
             catch
             {
@@ -187,7 +187,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
                 return true;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -197,7 +197,7 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
             try
             {
                 var entity = await _examDBContext.Exam.FirstOrDefaultAsync(x => x.ExamId == exam.ExamId);
-             
+
                 _examDBContext.Entry(entity).State = EntityState.Detached;
                 exam.Description = entity.Description;
                 exam.DateCreated = entity.DateCreated;
@@ -216,7 +216,14 @@ namespace Flexion.Test.Infrastructure.Persistence.Repositories
 
         public async Task<List<ExamQuestion>> GetExamQuestions(int examID)
         {
-            return await _examDBContext.ExamQuestion.AsNoTracking().Include(x=>x.ExamQuestionAnswer).Include(x=>x.DestinationConversion).Include(x => x.DestinationConversion.ConversionType).Include(x => x.SourceConversion.ConversionType).Include(x=>x.SourceConversion).Include(x=>x.Exam).Where(x=>x.ExamId == examID).ToListAsync();
+            return await _examDBContext.ExamQuestion.AsNoTracking().Include(x => x.ExamQuestionAnswer).Include(x => x.DestinationConversion).Include(x => x.DestinationConversion.ConversionType).Include(x => x.SourceConversion.ConversionType).Include(x => x.SourceConversion).Include(x => x.Exam).Where(x => x.ExamId == examID).ToListAsync();
         }
+
+        public Task<Exam> Initialize()
+        {
+            return null;
+        }
+
+
     }
 }

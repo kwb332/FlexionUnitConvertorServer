@@ -72,6 +72,9 @@ namespace Flexion.Test.Application
             return await _testService.GetExamByTeacher(teacherID);
         }
 
-
+        public async Task<Exam> Initialize()
+        {
+            return await _testService.Initialize();
+        }
     }
 }

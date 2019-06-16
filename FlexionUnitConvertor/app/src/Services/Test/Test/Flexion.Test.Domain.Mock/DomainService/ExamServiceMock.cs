@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace Flexion.Test.Domain
+namespace Flexion.Test.Domain.Mock
 {
-    public class TestService : ITestService
+    public class ExamServiceMock : ITestService
     {
         private readonly ITestRepository _testRepository;
         private readonly IConversionService _conversionService;
-        public TestService(ITestRepository testRepository, IConversionService conversionService)
+        public ExamServiceMock(ITestRepository testRepository, IConversionService conversionService)
         {
             _conversionService = conversionService;
             _testRepository = testRepository;
@@ -24,6 +24,11 @@ namespace Flexion.Test.Domain
             {
                 Answer = answer.Answer,
                 ExamQuestionId = answer.ExamQuestionId,
+           
+                ExamQuestion = new Infrastructure.DataModel.ExamQuestion()
+                {
+                  ExamQuestionId = answer.ExamQuestionId
+                },
                 IsAnswered = true
                
             };
@@ -35,6 +40,49 @@ namespace Flexion.Test.Domain
 
             var questionData = new Infrastructure.DataModel.ExamQuestion()
             {
+                ExamQuestionId = question.ExamQuestionId,
+                Exam = new Infrastructure.DataModel.Exam()
+                {
+                    ExamId = question.ExamId,
+                    DateCompleted = question.Exam.DateCompleted,
+                    Description = question.Exam.Description,
+                    IsComplete = false,
+                    DateCreated = question.Exam.DateCreated,
+                    IsCreated = question.Exam.IsCreated,
+                    IsGraded = question.Exam.IsGraded,
+                    StudentId = question.Exam.StudentId,
+                    TeacherId = question.Exam.TeacherId
+
+
+                },
+                DestinationConversion = new Infrastructure.DataModel.Conversion()
+                {
+                    ConversionId = question.DestinationConversion.ConversionId,
+                    ConversionName = question.DestinationConversion.ConversionName,
+                    ConversionType = new Infrastructure.DataModel.ConversionType()
+                    {
+                        ConversionTypeId = question.DestinationConversion.ConversionTypeId,
+                        ConversionName = question.DestinationConversion.ConversionName
+
+                    },
+                    ConversionTypeId = question.DestinationConversion.ConversionTypeId
+
+                },
+                SourceConversion = new Infrastructure.DataModel.Conversion()
+                {
+                    ConversionId = question.SourceConversion.ConversionId,
+                    ConversionName = question.SourceConversion.ConversionName,
+                    ConversionType = new Infrastructure.DataModel.ConversionType()
+                    {
+                        ConversionTypeId = question.SourceConversion.ConversionTypeId,
+                        ConversionName = question.SourceConversion.ConversionName
+
+                    },
+                    ConversionTypeId = question.SourceConversion.ConversionTypeId
+
+                },
+                ExamQuestionAnswer = new List<Infrastructure.DataModel.ExamQuestionAnswer>(),
+               
                 SourceConversionId = question.SourceConversionId,
                 DestinationConversionId = question.DestinationConversionId,
                 ExamId = question.ExamId,
@@ -106,7 +154,7 @@ namespace Flexion.Test.Domain
             var examData = await _testRepository.GetExam(examID);
             var examObject = new Exam()
             {
-                DateCompleted = examData.DateCompleted.Value.ToLocalTime(),
+                DateCompleted = examData.DateCompleted,
                 DateCreated = examData.DateCreated,
                 Description = examData.Description,
                 ExamId = examData.ExamId,
@@ -211,6 +259,7 @@ namespace Flexion.Test.Domain
                     SourceConversionId = x.SourceConversionId,
                     Answer = new ExamQuestionAnswer()
                     {
+                        ExamQuestionId = x.ExamQuestionId,
                         Answer = x.ExamQuestionAnswer.FirstOrDefault() == null ? null : x.ExamQuestionAnswer.FirstOrDefault().Answer,
                         IsAnswered = x.ExamQuestionAnswer.FirstOrDefault() == null ? false : x.ExamQuestionAnswer.FirstOrDefault().IsAnswered,
                     }
@@ -244,9 +293,64 @@ namespace Flexion.Test.Domain
             return examObjects;
         }
 
-        public Task<Exam> Initialize()
+        public async Task<Exam> Initialize()
         {
-            return null;
+            _testRepository.Initialize();
+            Exam exam = new Exam();
+
+            exam.ExamId = 1;
+            exam.DateCompleted = null;
+            exam.DateCreated = DateTime.Now;
+            exam.Description = "Exam 1";
+            exam.IsComplete = false;
+            exam.IsCreated = true;
+            exam.IsGraded = false;
+            exam.TeacherId = 1;
+            exam.StudentId = 1;
+
+            ExamQuestion question = new ExamQuestion();
+            question.ExamId = 1;
+            question.ExamQuestionId = 1;
+            question.InputValue = 23;
+            question.SourceConversionId = 1;
+            question.DestinationConversionId = 3;
+
+
+            question.SourceConversion = new Conversion()
+            {
+                ConversionId = 1,
+                ConversionTypeId = 2,
+
+                ConversionName = "Kelvin",
+                ConversionType = new ConversionType()
+                {
+                    ConversionTypeId = 2,
+                    ConversionName = "Temperature"
+                }
+            };
+            question.DestinationConversion = new Conversion()
+            {
+                ConversionId = 3,
+                ConversionTypeId = 2,
+                ConversionName = "Celsius",
+                ConversionType = new ConversionType()
+                {
+                    ConversionTypeId = 2,
+                    ConversionName = "Temperature"
+                }
+            };
+
+            question.Exam = exam;
+
+
+          
+            
+            exam.ExamQuestion = new List<ExamQuestion>();
+            exam.ExamQuestion.Add(question);
+           
+            
+           
+            return exam;
         }
 
         public async Task<bool> SubmitExamToStudent(Exam exam)
@@ -269,37 +373,64 @@ namespace Flexion.Test.Domain
 
         public async Task<List<Report>> SubmitExamToTeacher(Exam exam)
         {
-            var examQuestions = await _testRepository.GetExamQuestions(exam.ExamId);
+            var examQuestions = exam.ExamQuestion.Select(x => new Infrastructure.DataModel.ExamQuestion()
+            {
+                ExamId = exam.ExamId,
+                DestinationConversionId = x.DestinationConversionId,
+                SourceConversionId = x.SourceConversionId,
+                ExamQuestionId = x.ExamQuestionId,
+                
+                DestinationConversion = new Infrastructure.DataModel.Conversion()
+                {
+                    ConversionId = x.DestinationConversion.ConversionId,
+                    ConversionName = x.DestinationConversion.ConversionName,
+                    ConversionTypeId = x.DestinationConversion.ConversionTypeId,
+                    ConversionType = new Infrastructure.DataModel.ConversionType()
+                    {
+                        ConversionName = x.DestinationConversion.ConversionType.ConversionName,
+                        ConversionTypeId = x.DestinationConversion.ConversionType.ConversionTypeId,
+
+                    }
+                },
+                SourceConversion = new Infrastructure.DataModel.Conversion()
+                {
+                    ConversionId = x.SourceConversion.ConversionId,
+                    ConversionName = x.SourceConversion.ConversionName,
+                    ConversionTypeId = x.SourceConversion.ConversionTypeId,
+                    ConversionType = new Infrastructure.DataModel.ConversionType()
+                    {
+                        ConversionName = x.SourceConversion.ConversionType.ConversionName,
+                        ConversionTypeId = x.SourceConversion.ConversionType.ConversionTypeId,
+
+                    }
+                },
+                InputValue = x.InputValue,
+                ExamQuestionAnswer = x.ExamQuestionAnswer.Select(y=> new Infrastructure.DataModel.ExamQuestionAnswer()
+                {
+                    Answer = y.Answer,
+                    ExamQuestionAnswerId = y.ExamQuestionAnswerId,
+                    IsAnswered = y.IsAnswered,
+                    ExamQuestionId = x.ExamQuestionId
+                }).ToList()
+
+
+
+            }).ToList();
             var convertionTable = await _testRepository.GetConversionTable();
             bool isGraded = await _conversionService.GradeExam(examQuestions, convertionTable);
            
-            if (isGraded)
-            {
-                var examData = new Infrastructure.DataModel.Exam()
-                {
-                    ExamId = exam.ExamId,
-                    IsComplete = true,
-                    IsGraded = true,
-                    DateCompleted = DateTime.Now.ToLocalTime(),
-
-                };
-                await _testRepository.SubmitExamToStudent(examData);
-            }
             var reports = examQuestions.Select(x =>
               new Report()
               {
                   ExamId = x.ExamId,
                   InputUnitOfMeasure = x.SourceConversion.ConversionName,
                   InputValue = x.InputValue,
-                  StudentID = exam.StudentId,
-                  StudentName = exam.StudentName,
                   StudentResponse = x.ExamQuestionAnswer.FirstOrDefault().Answer,
                   IsCorrect = x.ExamQuestionAnswer.FirstOrDefault().IsCorrect,
                   OutPutUnitOfMeasure = x.DestinationConversion.ConversionName,
-                  TeacherName = exam.TeacherName,
-                  TeacherID = exam.TeacherId,
-                  ExamDate = x.Exam.DateCreated,
-                  ExamDescription = x.Exam.Description
+                  ExamQuestion = exam.ExamQuestion.FirstOrDefault(),
+                  ExamDate = exam.DateCreated,
+                  ExamDescription = exam.Description
 
               }).ToList();
 

@@ -17,7 +17,9 @@ namespace Flexion.Test.Domain.DomainInterface
             Task<Conversion> GetConversion(int conversionID);
             Task<List<Exam>> GetExams();
             Task<Exam> GetExam(int examID);
-            Task<List<Exam>> GetExamByUser(int userID);
+
+        Task<Exam> Initialize();
+        Task<List<Exam>> GetExamByUser(int userID);
         Task<List<ExamQuestion>> GetExamQuestions(int examID);
         Task<List<Exam>> GetExamByTeacher(int teacherID);
     }

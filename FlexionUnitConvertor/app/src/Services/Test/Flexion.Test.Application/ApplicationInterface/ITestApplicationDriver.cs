@@ -8,6 +8,7 @@ namespace Flexion.Test.Application.ApplicationInterface
 {
     public interface ITestApplicationDriver
     {
+        Task<Exam> Initialize();
         Task<List<ExamQuestion>> GetExamQuestions(int examID);
         Task<bool> CreateExam(Exam exam);
         Task<bool> AddQuestion(ExamQuestion question);
