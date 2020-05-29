@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{DC645BE1-AAD7-49BC-A6ED-007E949878EF}"
 EndProject
@@ -62,11 +62,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B9B27C17-721E-4326-8166-F18C7AEFF319}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamUnitTest", "FlexionUnitConvertor\app\src\Services\Test\Test\ExamUnitTest\ExamUnitTest.csproj", "{F40B4E86-37D3-4907-B827-B8BBEBEE7196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamUnitTest", "FlexionUnitConvertor\app\src\Services\Test\Test\ExamUnitTest\ExamUnitTest.csproj", "{F40B4E86-37D3-4907-B827-B8BBEBEE7196}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flexion.Test.Domain.Mock", "FlexionUnitConvertor\app\src\Services\Test\Test\Flexion.Test.Domain.Mock\Flexion.Test.Domain.Mock.csproj", "{2F591736-D184-4706-B94E-D76311DB661C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flexion.Test.Infrastructure.Mock", "FlexionUnitConvertor\app\src\Services\Test\Test\Flexion.Test.Infrastructure.Mock\Flexion.Test.Infrastructure.Mock.csproj", "{B2E483CA-5BE2-4626-B3E5-D87583E2BD66}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{F7037E8D-877E-428A-8613-99F525EF8413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flexion.Gateway.API", "FlexionUnitConvertor\app\src\Services\Gateway\Flexion.Gateway.API\Flexion.Gateway.API.csproj", "{9E86EBCD-E2AF-4C70-A7E2-D9601B985FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flexion.Gateway.Core", "FlexionUnitConvertor\app\src\Services\Gateway\Flexion.Gateway.Core\Flexion.Gateway.Core.csproj", "{954A70EA-2490-4F65-96BD-FF9ACDD16690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flexion.Report.Domain.Contract", "FlexionUnitConvertor\app\src\Services\Report\Flexion.Report.Domain.Contract\Flexion.Report.Domain.Contract.csproj", "{91B064D8-4864-4C32-A3DD-D709F618790F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flexion.Report.Infrastructure.Contract", "FlexionUnitConvertor\app\src\Services\Report\Flexion.Report.Infrastructure.Contract\Flexion.Report.Infrastructure.Contract.csproj", "{5C1E6CF3-9A75-4EEA-8F04-2114E0CEB913}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,6 +160,22 @@ Global
 		{B2E483CA-5BE2-4626-B3E5-D87583E2BD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2E483CA-5BE2-4626-B3E5-D87583E2BD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2E483CA-5BE2-4626-B3E5-D87583E2BD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E86EBCD-E2AF-4C70-A7E2-D9601B985FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E86EBCD-E2AF-4C70-A7E2-D9601B985FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E86EBCD-E2AF-4C70-A7E2-D9601B985FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E86EBCD-E2AF-4C70-A7E2-D9601B985FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{954A70EA-2490-4F65-96BD-FF9ACDD16690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{954A70EA-2490-4F65-96BD-FF9ACDD16690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{954A70EA-2490-4F65-96BD-FF9ACDD16690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{954A70EA-2490-4F65-96BD-FF9ACDD16690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B064D8-4864-4C32-A3DD-D709F618790F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B064D8-4864-4C32-A3DD-D709F618790F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B064D8-4864-4C32-A3DD-D709F618790F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B064D8-4864-4C32-A3DD-D709F618790F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C1E6CF3-9A75-4EEA-8F04-2114E0CEB913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C1E6CF3-9A75-4EEA-8F04-2114E0CEB913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C1E6CF3-9A75-4EEA-8F04-2114E0CEB913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C1E6CF3-9A75-4EEA-8F04-2114E0CEB913}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +211,11 @@ Global
 		{F40B4E86-37D3-4907-B827-B8BBEBEE7196} = {B9B27C17-721E-4326-8166-F18C7AEFF319}
 		{2F591736-D184-4706-B94E-D76311DB661C} = {B9B27C17-721E-4326-8166-F18C7AEFF319}
 		{B2E483CA-5BE2-4626-B3E5-D87583E2BD66} = {B9B27C17-721E-4326-8166-F18C7AEFF319}
+		{F7037E8D-877E-428A-8613-99F525EF8413} = {E87DF2B0-7734-4E63-A3FB-EC6D92209F9F}
+		{9E86EBCD-E2AF-4C70-A7E2-D9601B985FA0} = {F7037E8D-877E-428A-8613-99F525EF8413}
+		{954A70EA-2490-4F65-96BD-FF9ACDD16690} = {F7037E8D-877E-428A-8613-99F525EF8413}
+		{91B064D8-4864-4C32-A3DD-D709F618790F} = {0A9401E7-632B-496B-974B-34AE5EBF1C79}
+		{5C1E6CF3-9A75-4EEA-8F04-2114E0CEB913} = {0A9401E7-632B-496B-974B-34AE5EBF1C79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C76250F-FAE9-42A8-A96C-325A9A88DD9B}
